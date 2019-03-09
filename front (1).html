@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Tyrant</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+  <link rel="icon" type="image/gif" href="Untitled2.ICO" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="home_Style.css">
+
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+  <script type="text/javascript">
+    $("#btnPrint").live("click", function () {
+      var divContents = $("#container").html();
+      var printWindow = window.open('', '', 'height=400,width=800');
+      printWindow.document.write('<html><head><title>Tyrant Poster</title>');
+      printWindow.document.write('</head><body >');
+      printWindow.document.write(divContents);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+    });
+  </script>
+  <script>
+    $(document).ready(function(){
+        $(".show_hide").show();
+
+    $('.show_hide').click(function(){
+    $(".slidingDiv").slideToggle();
+    });
+    $("input[type=radio]").click(function(){
+            var radioValue = $("input[name='cg']:checked").val();
+            if(radioValue){
+               document.getElementById("content_editable").style.textAlign = radioValue;
+            }
+        });
+ 
+     $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                if ($(this).val()=="Italics")
+                  $("#content_editable").css("font-style","italic");
+                else if  ($(this).val()=="Bold")
+                 { 
+                  $("#content_editable").css("font-weight","bold");}
+                else if ($(this).val()=="Underline")
+                  {
+                  $("#content_editable").css("text-decoration","underline");}
+                
+            }
+            else if($(this).prop("checked") == false){
+              if ($(this).val()=="Italics")
+                  {
+                  $("#content_editable").css("font-style","normal");}
+              else if ($(this).val()=="Bold")
+                  {
+                  $("#content_editable").css("font-weight","normal");}
+              else if ($(this).val()=="Underline")
+                  {
+                  $("#content_editable").css("text-decoration","none");}
+                
+
+            }
+        });
+    
+     $("#menu1,#menu2,#menu3,#menu4,#menu5,#menu6,#menu7,#menu8,#menu9,#menu10,#menu11,#menu12").on({
+     mouseover: function(){
+      $(this).css("padding", "0px");
+     },  
+    mouseout: function(){
+      $(this).css("padding", "20px");
+      },
+      click: function(){
+       
+        var imgsrc=$(this).attr('src'); 
+  
+  $("#image").attr('src',imgsrc);
+      
+      }
+  });
+$("#text_button").click(function(){
+  $("#div").append("<div class='ui-draggable ui-draggable-dragging' contenteditable='true'  id='content_editable' style='position: relative;color: rgb(255, 0, 0);width: max-content;left: 100px;top: 40px;  text-align: right;padding-right: 20px;padding-left: 20px;'>Text to edit  </div>");
+});
+ 
+$("#content_editable") .draggable({containment:"#div"}) .click(function(){ if ( $(this).is('.ui-draggable-dragging') ) { $(this).css("opacity","1") } $(this).draggable( "option", "disabled", true ); $(this).attr('contenteditable','true'); }) .blur(function(){ $(this).draggable( 'option', 'disabled', false); $(this).attr('contenteditable','false'); });
+});
+function ddlselect (){
+  var d=document.getElementById("family");
+  var displaytext=d.options[d.selectedIndex].text;
+  
+  
+  document.getElementById("content_editable").style.fontFamily = displaytext;
+  }
+function color(){
+  var d=document.getElementById("color");
+  var displaytext=d.options[d.selectedIndex].text;
+  
+  
+  document.getElementById("content_editable").style.color = displaytext;
+  
+}
+function menu(){
+  var d=document.getElementById("menu");
+  var displaytext=d.options[d.selectedIndex].text;
+  document.getElementById("content_editable").style.fontSize = displaytext+"px";
+  
+}
+function opacity(){
+  var d=document.getElementById("opacity");
+  var displaytext=d.options[d.selectedIndex].text;
+  document.getElementById("content_editable").style.opacity = displaytext;
+ 
+}
+function opacity_image(){
+  var d=document.getElementById("opacity_image");
+  var displaytext=d.options[d.selectedIndex].text;
+  document.getElementById("image").style.opacity = displaytext;
+ 
+}
+window.addEventListener('load', function() {
+  document.querySelector('input[type="file"]').addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+          var img = document.querySelector('#image');  // $('img')[0]
+          img.src = URL.createObjectURL(this.files[0]); // set src to file url
+          img.onload = imageIsLoaded; // optional onload event listener
+      }
+  });
+});
+</script>
+</head>
+<article>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <style="font-family:Algerian,color:White">Tyrant Poster Maker</style>
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="btnPrint"><span class="glyphicon glyphicon-download-alt" style="margin-right: 5px;"></span>Download</a></li>
+      </ul>
+    </div>
+  </nav>
+</article>
+
+<body style="background-image: url('milky-way-starry-sky-night-sky-star-956981.jpeg'); background-repeat: no-repeat; background-size:cover; overflow: scroll; height: 100%;background-attachment: fixed;">
+  <div class="row">
+    <div class="container-fluid col-lg-8" id="container" style=" 
+    width: 50%;
+    height: 400px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 180px;">
+      <img src="download.jpg" style=" position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: inherit;
+    "
+        id="image">
+      <div id="div" class="container-fluid" style="position: relative; height: inherit;">
+        <div id="content_editable" style="
+    position: relative;
+    color: rgb(255, 0, 0);
+    width: max-content;
+    left: 100px;
+    top: 40px;
+    text-align: center;
+    font-size: 25px;
+    padding-right: 20px;
+    padding-left: 20px;">
+          Text to edit
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid col-lg-4" style=" background-color: black;
+    width: 300px;
+    border: solid 1px black;
+    height: 450px;
+    margin-left: 70px;
+    opacity: 0.7;
+    padding-top: 10px; ">
+      <div class="container">
+        <select onchange="ddlselect();" value="arial" style="width: 200px;
+    padding-top: 5px;
+    padding-left: 65px;
+    font-size: 15px;
+    padding-bottom: 5px; color:black;"
+          id="family">
+          <option value='arial'>Arial</option>
+          <option value='forte'>Forte</option>
+          <option value='Monotype Corsiva'>Monotype Corsiva</option>
+          <option value='Algerian'>Algerian</option>
+          <option value='Calibri'>Calibri</option>
+          <option value='Helvetica'>Helvetica</option>
+          <option value='Times'>Times</option>
+          <option value='Courier new'>Courier New</option>
+          <option value='Courier'>Courier</option>
+          <option value='Verdand'>Verdana</option>
+          <option value='Georgia'>Georgia</option>
+          <option value='Palatino'>Palatino</option>
+          <option value='Garamond'>Garamond</option>
+          <option value='Bookman'>Bookman</option>
+          <option value='Comic Sans MS'>Comic Sans MS</option>
+          <option value='Trebuchet MS'>Trebuchet MS</option>
+          <option value='Arial Black'>Arial Black</option>
+          <option value='impact'>impact</option>
+        </select>
+
+      </div>
+      <div class="container">
+        <select id="color" style="color: black; width: 200px;margin-top: 15px; padding-top: 5px; padding-left: 65px; font-size: 15px;padding-bottom: 5px;"
+          onchange="color();">
+          <option value="">Text Color</option>
+          <option value="#000000" style="background-color: Black;color: #FFFFFF;">Black</option>
+          <option value="#808080" style="background-color: Gray;">Gray</option>
+          <option value="#A9A9A9" style="background-color: DarkGray;">DarkGray</option>
+          <option value="#D3D3D3" style="background-color: LightGrey;">LightGray</option>
+          <option value="#FFFFFF" style="background-color: White;">White</option>
+          <option value="#7FFFD4" style="background-color: Aquamarine;">Aquamarine</option>
+          <option value="#0000FF" style="background-color: Blue;">Blue</option>
+          <option value="#000080" style="background-color: Navy;color: #FFFFFF;">Navy</option>
+          <option value="#800080" style="background-color: Purple;color: #FFFFFF;">Purple</option>
+          <option value="#FF1493" style="background-color: DeepPink;">DeepPink</option>
+          <option value="#EE82EE" style="background-color: Violet;">Violet</option>
+          <option value="#FFC0CB" style="background-color: Pink;">Pink</option>
+          <option value="#006400" style="background-color: DarkGreen;color: #FFFFFF;">DarkGreen</option>
+          <option value="#008000" style="background-color: Green;color: #FFFFFF;">Green</option>
+          <option value="#9ACD32" style="background-color: YellowGreen;">YellowGreen</option>
+          <option value="#FFFF00" style="background-color: Yellow;">Yellow</option>
+          <option value="#FFA500" style="background-color: Orange;">Orange</option>
+          <option value="#FF0000" style="background-color: Red;">Red</option>
+          <option value="#A52A2A" style="background-color: Brown;">Brown</option>
+          <option value="#DEB887" style="background-color: BurlyWood;">BurlyWood</option>
+          <option value="#F5F5DC" style="background-color: Beige;">Beige</option>
+        </select>
+      </div>
+      <div class="container">
+        <select id="menu" style=" color:black;    width: 200px;margin-top: 15px; padding-top: 5px; padding-left: 65px; font-size: 15px;padding-bottom: 5px;"
+          onchange="menu();">
+          <option value="">Font Size</option>
+          <option value=2>2</option>
+          <option value=4>4</option>
+          <option value=6>6</option>
+          <option value=8>8</option>
+          <option value=10>10</option>
+          <option value=12>12</option>
+          <option value=14>14</option>
+          <option value=16>16</option>
+          <option value=18>18</option>
+          <option value=20>20</option>
+          <option value=22>22</option>
+          <option value=24>24</option>
+          <option value=26>26</option>
+          <option value=28>28</option>
+          <option value=30>30</option>
+          <option value=16>32</option>
+          <option value=18>34</option>
+          <option value=20>36</option>
+          <option value=22>38</option>
+          <option value=24>40</option>
+          <option value=26>42</option>
+          <option value=28>44</option>
+          <option value=30>46</option>
+        </select>
+      </div><br />
+      <div class="container" style="color:white">
+        <p>Opacity for text</p>
+        <select id="opacity" style="color:black;    width: 200px;margin-top: 15px;  padding-left: 65px; font-size: 15px;padding-bottom: 5px;"
+          onchange="opacity();">
+          <option value="">Opacity</option>
+          <option value=0>0</option>
+          <option value=0.2>0.2</option>
+          <option value=0.4>0.4</option>
+          <option value=0.6>0.6</option>
+          <option value=0.8>0.8</option>
+          <option value=1>1</option>
+        </select>
+      </div><br />
+      <div class="container">
+        <p style="color:white;">Opacity for image</p>
+        <select id="opacity_image" style="    width: 200px;margin-top: 15px;padding-left: 65px; font-size: 15px;padding-bottom: 5px;"
+          onchange="opacity_image();">
+          <option value="">Opacity</option>
+          <option value=0>0</option>
+          <option value=0.2>0.2</option>
+          <option value=0.4>0.4</option>
+          <option value=0.6>0.6</option>
+          <option value=0.8>0.8</option>
+          <option value=1>1</option>
+        </select>
+      </div>
+      <br />
+      <div class="container" style="color:white;">
+        <tr>
+          <td><b><i>Alignment:</i></b></td><br />
+          <td><input style="margin-right: 15px;" type='radio' name='cg' value='Right'>Right<input style="margin-right: 15px; margin-left: 10px;"
+              type='radio' name='cg' value='Left'>Left<input type='radio' name='cg' value='Center' style="margin-left: 10px;margin-right: 15px;">Center</td><br>
+        </tr>
+      </div><br />
+      <div class="container" style="color:white;">
+        <tr>
+          <td><b><i>Text format:-</i></b></td><br />
+          <td><input type='checkbox' value='Bold' name="ci" style="margin-right: 5px;">Bold<input style="margin-right: 5px; margin-left:10px;"
+              type='checkbox' value='Italics' name="ci">Italics<input type='checkbox' style="margin-right: 5px; margin-left:10px;"
+              value='Underline' name="ci">Underline</td>
+        </tr>
+      </div>
+    </div>
+  </div>
+  <center><input id='entry' type='file' /></center>
+  <div class=" row container-fluid" style="margin-left: 100px; margin-top: 20px; width: 90% ; position: absolute; top: 620px;">
+    <img id="menu1" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px" width="280px" height="250px">
+    <img id="menu2" alt="4" src="pexels-photo-1153213 (1).jpeg" style="padding:20px" width="280px" height="250px">
+    <img id="menu3" alt="4" src="pexels-photo-1153213 (1).jpeg" style="padding:20px" width="280px" height="250px">
+    <img id="menu4" alt="4" src="pexels-photo-1153213 (1).jpeg" style="padding:20px" width="280px" height="250px">
+    <img id="menu5" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px" width="280px" height="250px">
+    <img id="menu6" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+    <img id="menu7" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+    <img id="menu8" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+    <img id="menu9" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+    <img id="menu10" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+    <img id="menu11" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+    <img id="menu12" alt="4" src="pexels-photo-1153213 (1).jpeg" style=" padding:20px;" width="280px" height="250px">
+  </div>
+</body>
+
+</html>
